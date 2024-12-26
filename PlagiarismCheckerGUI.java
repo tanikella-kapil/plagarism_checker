@@ -4,6 +4,9 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+//import javafx.geometry.Pos; 
+//import javafx.scene.input.KeyCode;  
+//import javafx.event.ActionEvent;  
 import java.io.*;
 import java.util.*;
 
@@ -19,24 +22,16 @@ public class PlagiarismCheckerGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Plagiarism Checker");
-
-        // Create buttons
         Button uploadFile1Btn = new Button("Upload File 1");
         Button uploadFile2Btn = new Button("Upload File 2");
         Button checkPlagiarismBtn = new Button("Check Plagiarism");
         Button saveReportBtn = new Button("Save Report");
-
-        // Labels for file paths and results
         Label file1Label = new Label("File 1: Not selected");
         Label file2Label = new Label("File 2: Not selected");
         resultLabel = new Label("Result: Similarity not calculated yet");
-
-        // Layout
         VBox layout = new VBox(10);
         layout.setStyle("-fx-padding: 20;");
         layout.getChildren().addAll(uploadFile1Btn, file1Label, uploadFile2Btn, file2Label, checkPlagiarismBtn, resultLabel, saveReportBtn);
-
-        // Button actions
         uploadFile1Btn.setOnAction(e -> {
             file1 = chooseFile(primaryStage);
             file1Label.setText("File 1: " + (file1 != null ? file1.getName() : "Not selected"));
@@ -73,21 +68,15 @@ public class PlagiarismCheckerGUI extends Application {
                 resultLabel.setText("Check plagiarism before saving the report.");
             }
         });
-
-        // Scene and stage setup
         Scene scene = new Scene(layout, 400, 300);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-    // File chooser method
     private File chooseFile(Stage stage) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select File");
         return fileChooser.showOpenDialog(stage);
     }
-
-    // Read content from a file
     private String readFile(File file) throws IOException {
         StringBuilder content = new StringBuilder();
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -98,8 +87,6 @@ public class PlagiarismCheckerGUI extends Application {
         }
         return content.toString().toLowerCase();
     }
-
-    // Create word frequency map
     private Map<String, Integer> getWordFrequency(String text) {
         Map<String, Integer> freqMap = new HashMap<>();
         String[] words = text.split("\\W+");
@@ -110,8 +97,6 @@ public class PlagiarismCheckerGUI extends Application {
         }
         return freqMap;
     }
-
-    // Calculate cosine similarity
     private double calculateCosineSimilarity(Map<String, Integer> freqMap1, Map<String, Integer> freqMap2) {
         Set<String> uniqueWords = new HashSet<>();
         uniqueWords.addAll(freqMap1.keySet());
@@ -136,8 +121,6 @@ public class PlagiarismCheckerGUI extends Application {
 
         return dotProduct / (Math.sqrt(magnitude1) * Math.sqrt(magnitude2));
     }
-
-    // Save report to a text file
     private void saveReport(Stage stage, String result) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save Report");
