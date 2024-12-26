@@ -1,6 +1,4 @@
-## Getting Started
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
 ## Overview
 The Plagiarism Detection System is a Java-based application that compares two text files to identify similarities and potential plagiarism. It makes use of advanced algorithms that help in the analysis of content within the files, which generates a similarity report for the originality of content. This system can be used by educators, students, content creators, and businesses for verifying the authenticity of written material.
 ## Features ✨
